@@ -63,8 +63,10 @@ $(document).ready(function() {
 // Add marker for place to map
 function addMarker(place)
 {
+    // Gets latitude and longitude from database
     let myLatLng = new google.maps.LatLng(place["latitude"],place["longitude"]);
 
+    // Give markers position and some other things
     const marker = new google.maps.Marker({
         position: myLatLng,
         label: place["place_name"] +", "+ place["admin_name1"],
@@ -78,7 +80,10 @@ function addMarker(place)
         }
     });
 
+    // Set markers on map
     marker.setMap(map);
+
+    // Listenes if a marker is clicked
     marker.addListener('click', function() {
         showInfo(marker);
 
@@ -88,17 +93,18 @@ function addMarker(place)
 
         $.getJSON("/articles", parameters, function(data, textStatus, jqXHR) {
 
+            // Creates list with news
             var articlesContent = '<ul>';
             data.forEach(function(row) {
                 articlesContent += '<li><a href="' + row.link + '" target="_blank">' + row.title + '</a></li>';
             });
-
             articlesContent += '</ul>';
 
             showInfo(marker, articlesContent);
         });
     });
 
+    // Pushes markers to array
     markers.push(marker);
 }
 
@@ -174,11 +180,13 @@ function configure()
 // Remove markers from map
 function removeMarkers()
 {
-    markers.forEach(function (marker) {
+    // Remove markers from map
+    markers.forEach(function(marker) {
         marker.setMap(null);
     });
 
-    markers.length = 0;
+    // Delete markers from array
+    markers = [];
 }
 
 
@@ -248,4 +256,4 @@ function update()
            addMarker(data[i]);
        }
     });
-};
+}
