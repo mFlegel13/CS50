@@ -239,9 +239,8 @@ def sell():
     """Sell shares of stock"""
 
     if request.method == "GET":
-        stock = db.execute(
-            "SELECT symbol FROM portfolio WHERE id=:id", id=session["user_id"])
-        return render_template("sell.html")
+        symbol = db.execute("SELECT symbol FROM portfolio WHERE id=:id", id=session["user_id"])
+        return render_template("sell.html", stocks=symbol)
     #Ensure proper symbol
     else:
         stock = lookup(request.form.get("symbol"))
