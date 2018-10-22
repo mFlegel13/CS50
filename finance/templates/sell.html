@@ -9,7 +9,6 @@
         <div class="form-group">
             <select class="form-control" name="symbol" required>
                 <option disabled selected value>Symbol</option>
-                <option value="bla">bla</option>
                 {% for stock in stocks %}
                     <option value="{{ stock.symbol }}">{{ stock.symbol }}</option>
                 {% endfor %}
