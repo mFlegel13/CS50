@@ -182,7 +182,7 @@ def buy():
     else:
         stock = lookup(request.form.get("symbol"))
         if not stock:
-            return apology
+            return apology("Invalid symbol")
 
         #Ensure proper number of shares
         try:
